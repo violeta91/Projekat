@@ -15,6 +15,8 @@ import javax.swing.JMenuItem;
  */
 class Frame extends JFrame
 {   
+    Board board = new Board();
+    
     public Frame()
     {  
         setJMenuBar(initMenu());
