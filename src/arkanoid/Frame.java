@@ -5,6 +5,8 @@
  */
 package arkanoid;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -42,6 +44,14 @@ class Frame extends JFrame
         JMenu gameMenu = new JMenu("Game");
         
         JMenuItem newGame = new JMenuItem("New game");
+        
+         newGame.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                board.startGame();
+            }
+        });
         
         gameMenu.add(newGame);
         

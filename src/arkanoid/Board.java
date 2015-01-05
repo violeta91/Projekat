@@ -50,6 +50,12 @@ class Board extends JPanel implements Runnable
         runner = new Thread(this);
     }
     
+    public void startGame() 
+    {
+        inGame = true;
+        
+        ball.reset();
+    }    
     /**
      * @param g Paramtar koji sluzi za dohvatanje funkcija za iscrtavanje.
      */

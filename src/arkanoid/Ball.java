@@ -54,6 +54,9 @@ public class Ball extends Rectangle.Double implements GameObject {
     }
     
     public void reset() {
+        x = Board.PANEL_WIDTH/2 - w/2;
+        y = Board.PANEL_HEIGHT - h -20;
+        
         dx = DX;
         dy = DY;
     }
