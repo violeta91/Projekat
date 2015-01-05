@@ -19,6 +19,8 @@ class Frame extends JFrame
     
     public Frame()
     {  
+        add(board);
+        
         setJMenuBar(initMenu());
         
         pack();

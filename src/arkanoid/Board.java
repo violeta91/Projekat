@@ -28,6 +28,10 @@ class Board extends JPanel implements Runnable
     
     Boolean inGame;
     
+     // Objekti u igri
+    
+    Ball ball;
+    
     String message;
     
     public Board()
@@ -40,6 +44,8 @@ class Board extends JPanel implements Runnable
         
         inGame = false;
         message = "ARKANOID";
+        
+        ball = new Ball(this);
         
         runner = new Thread(this);
     }
@@ -61,6 +67,8 @@ class Board extends JPanel implements Runnable
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
 
+            ball.draw(g2);
+            
             // Sinhronizovanje sa grafickom kartom
             Toolkit.getDefaultToolkit().sync();
 
@@ -71,11 +79,26 @@ class Board extends JPanel implements Runnable
             g2.drawString(message, PANEL_WIDTH/2 - messageWidth/2, PANEL_HEIGHT/2);
         }
     }
+    
+    private void update() 
+    {
+        ball.move();
+    }
 
     @Override
     public void run()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        while(true) 
+        {
+            update();
+            repaint();
+
+            try {
+                Thread.sleep(30); //pauziramo izvrsavanje programa
+            } catch (InterruptedException ex) {
+                System.out.println(ex.toString());
+            }
+        }
     }
     
 }
