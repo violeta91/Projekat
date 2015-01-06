@@ -31,6 +31,7 @@ class Board extends JPanel implements Runnable
      // Objekti u igri
     
     Ball ball;
+    Pad pad;
     
     String message;
     
@@ -46,8 +47,11 @@ class Board extends JPanel implements Runnable
         message = "ARKANOID";
         
         ball = new Ball(this);
+        pad = new Pad(this, PANEL_WIDTH/2 - Pad.w/2, PANEL_HEIGHT - Pad.h);
         
         runner = new Thread(this);
+        
+        runner.start();
     }
     
     public void startGame() 
@@ -73,6 +77,7 @@ class Board extends JPanel implements Runnable
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
 
+            pad.draw(g2);
             ball.draw(g2);
             
             // Sinhronizovanje sa grafickom kartom
