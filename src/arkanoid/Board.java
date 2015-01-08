@@ -12,6 +12,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 
 /**
@@ -48,6 +50,8 @@ class Board extends JPanel implements Runnable
         
         ball = new Ball(this);
         pad = new Pad(this, PANEL_WIDTH/2 - Pad.w/2, PANEL_HEIGHT - Pad.h);
+        
+        addKeyListener(new GameKeyAdapter());
         
         runner = new Thread(this);
         
@@ -94,6 +98,7 @@ class Board extends JPanel implements Runnable
     private void update() 
     {
         ball.move();
+        pad.move();
     }
 
     @Override
@@ -109,6 +114,29 @@ class Board extends JPanel implements Runnable
             } catch (InterruptedException ex) {
                 System.out.println(ex.toString());
             }
+        }
+    }
+    
+    private class GameKeyAdapter extends KeyAdapter
+    {
+        @Override
+        public void keyPressed(KeyEvent e)
+        {
+            int keyCode = e.getKeyCode();
+            
+            if (keyCode == KeyEvent.VK_LEFT)
+                pad.moveLeft();
+            else if (keyCode == KeyEvent.VK_RIGHT)
+                pad.moveRight();
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e)
+        {
+            int keyCode = e.getKeyCode();
+            
+            if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT)
+                pad.stopMoving();
         }
     }
     

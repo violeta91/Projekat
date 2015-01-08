@@ -54,6 +54,7 @@ class Pad extends Rectangle.Double implements GameObject
         state = MovingState.STANDING;
     }
     
+    @Override
     public void move() {
         if (state == MovingState.MOVING_RIGHT)
             x += dx;
