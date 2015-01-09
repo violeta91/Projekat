@@ -38,6 +38,9 @@ class Board extends JPanel implements Runnable
     
     String message;
     
+    //broj zivota
+    private int numberOfLife;
+    
     public Board()
     {
         setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
@@ -63,7 +66,10 @@ class Board extends JPanel implements Runnable
     {
         inGame = true;
         
+        setNumberOfLife(5);
+        
         ball.reset();
+        pad.reset();
     }    
     /**
      * @param g Paramtar koji sluzi za dohvatanje funkcija za iscrtavanje.
@@ -84,6 +90,8 @@ class Board extends JPanel implements Runnable
 
             pad.draw(g2);
             ball.draw(g2);
+            
+            g2.drawString("Broj života: " + getNumberOfLife(), PANEL_WIDTH-160, 20);
             
             // Sinhronizovanje sa grafickom kartom
             Toolkit.getDefaultToolkit().sync();
@@ -125,6 +133,22 @@ class Board extends JPanel implements Runnable
                 System.out.println(ex.toString());
             }
         }
+    }
+    
+    /**
+     * @return the numberOfLife
+     */
+    public int getNumberOfLife()
+    {
+        return numberOfLife;
+    }
+
+    /**
+     * @param numberOfLife the numberOfLife to set
+     */
+    public void setNumberOfLife(int numberOfLife)
+    {
+        this.numberOfLife = numberOfLife;
     }
     
     private class GameKeyAdapter extends KeyAdapter

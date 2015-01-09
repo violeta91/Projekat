@@ -72,6 +72,8 @@ public class Ball extends Rectangle.Double implements GameObject {
         
         if (y + w >= board.PANEL_HEIGHT) 
         {
+            board.setNumberOfLife(board.getNumberOfLife() - 1);
+            
             reset();
             bouceVertical();
         }
