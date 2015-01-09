@@ -66,6 +66,20 @@ public class Ball extends Rectangle.Double implements GameObject {
     {
         x += dx * directionX;
         y += dy * directionY;
+        
+        if (x + w >= board.PANEL_WIDTH || x <= 0)
+            bouceHorizontal();
+        
+        if (y + w >= board.PANEL_HEIGHT) 
+        {
+            reset();
+            bouceVertical();
+        }
+        
+        if(y <= 0)
+        {
+            bouceVertical();
+        }
     }
     
     @Override

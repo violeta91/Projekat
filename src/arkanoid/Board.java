@@ -14,6 +14,7 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 /**
@@ -95,6 +96,14 @@ class Board extends JPanel implements Runnable
         }
     }
     
+    private void detectCollision()
+    {
+        if (ball.intersects(pad)) //ako se loptica poklapa sa reketom
+        {
+            ball.bouceVertical();
+        }
+    }
+    
     private void update() 
     {
         ball.move();
@@ -107,6 +116,7 @@ class Board extends JPanel implements Runnable
         while(true) 
         {
             update();
+            detectCollision();
             repaint();
 
             try {
@@ -139,5 +149,4 @@ class Board extends JPanel implements Runnable
                 pad.stopMoving();
         }
     }
-    
 }
