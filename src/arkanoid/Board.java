@@ -14,7 +14,6 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 /**
@@ -70,7 +69,14 @@ class Board extends JPanel implements Runnable
         
         ball.reset();
         pad.reset();
-    }    
+    } 
+    
+    public void stopGame(String message) 
+    {
+        inGame = false;
+        this.message = message;
+    }
+    
     /**
      * @param g Paramtar koji sluzi za dohvatanje funkcija za iscrtavanje.
      */

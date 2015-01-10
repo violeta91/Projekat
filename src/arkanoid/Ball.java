@@ -74,8 +74,15 @@ public class Ball extends Rectangle.Double implements GameObject {
         {
             board.setNumberOfLife(board.getNumberOfLife() - 1);
             
-            reset();
-            bouceVertical();
+            if(board.getNumberOfLife() == 0) //testiranje na poslednji zivot
+            {
+                board.stopGame("IGRICA GOTOVA, ZDRAVO!");
+            }
+            else
+            {
+                reset();
+                bouceVertical();
+            }
         }
         
         if(y <= 0)
