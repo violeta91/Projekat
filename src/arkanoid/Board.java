@@ -14,6 +14,7 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -37,6 +38,8 @@ class Board extends JPanel implements Runnable
     
     String message;
     
+    ArrayList<Target> listTargets = null;
+    
     //broj zivota
     private int numberOfLife;
     
@@ -55,6 +58,8 @@ class Board extends JPanel implements Runnable
         pad = new Pad(this, PANEL_WIDTH/2 - Pad.w/2, PANEL_HEIGHT - Pad.h);
         
         addKeyListener(new GameKeyAdapter());
+        
+        generateTargets();
         
         runner = new Thread(this);
         
@@ -95,6 +100,12 @@ class Board extends JPanel implements Runnable
                     RenderingHints.VALUE_ANTIALIAS_ON);
 
             pad.draw(g2);
+            
+            for (int i = 0; i < listTargets.size(); i++)
+            {
+                listTargets.get(i).draw(g2);
+            }
+             
             ball.draw(g2);
             
             g2.drawString("Broj života: " + getNumberOfLife(), PANEL_WIDTH-160, 20);
@@ -177,6 +188,20 @@ class Board extends JPanel implements Runnable
             
             if (keyCode == KeyEvent.VK_LEFT || keyCode == KeyEvent.VK_RIGHT)
                 pad.stopMoving();
+        }
+    }
+    
+    public void generateTargets()
+    {
+         //Lista meta
+        listTargets = new ArrayList<Target>();
+        
+        int yLocal = 50;
+        
+        int xLocal = 150;
+        for (int i = 0; i < 4; i++, xLocal += 125)
+        {
+            listTargets.add(new Target(xLocal, yLocal));
         }
     }
 }
