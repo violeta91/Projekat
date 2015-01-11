@@ -26,6 +26,8 @@ class Board extends JPanel implements Runnable
     
     public static final int PANEL_HEIGHT = 615;
     
+    public static int Y_SPACE_TARGET = 35;
+    
     final Color BACKGROUND_COLOR = Color.CYAN;
     final Thread runner;
     
@@ -200,6 +202,34 @@ class Board extends JPanel implements Runnable
         
         int xLocal = 150;
         for (int i = 0; i < 4; i++, xLocal += 125)
+        {
+            listTargets.add(new Target(xLocal, yLocal));
+        }
+        
+        xLocal = 100;
+        yLocal += Y_SPACE_TARGET;
+        for (int i = 4; i < 9; i++, xLocal += 125)
+        {
+            listTargets.add(new Target(xLocal, yLocal));
+        }
+
+        xLocal = 50;
+        yLocal += Y_SPACE_TARGET;
+        for (int i = 9; i < 15; i++, xLocal += 125)
+        {
+            listTargets.add(new Target(xLocal, yLocal));
+        }
+
+        xLocal = 100;
+        yLocal += Y_SPACE_TARGET;
+        for (int i = 15; i < 20; i++, xLocal += 125)
+        {
+            listTargets.add(new Target(xLocal, yLocal));
+        }
+
+        xLocal = 150;
+        yLocal += Y_SPACE_TARGET;
+        for (int i = 20; i < 24; i++, xLocal += 125)
         {
             listTargets.add(new Target(xLocal, yLocal));
         }
