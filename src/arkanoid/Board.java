@@ -14,6 +14,7 @@ import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
@@ -128,6 +129,35 @@ class Board extends JPanel implements Runnable
         if (ball.intersects(pad)) //ako se loptica poklapa sa reketom
         {
             ball.bouceVertical();
+        }
+
+        Rectangle2D ballBounds = ball.getBounds();
+        
+        for (int i = 0; i < listTargets.size(); i++)
+        {
+            Target tempTarget = listTargets.get(i);
+            
+            if (tempTarget.ellipseForDrawing.intersects(ballBounds))
+            {
+                if(tempTarget.getColor() == Color.LIGHT_GRAY)
+                {
+                }
+                else if(tempTarget.getColor() == Color.BLUE)
+                {
+                }
+                else
+                {
+                }
+                
+                this.listTargets.remove(i);
+                ball.bouceVertical();
+            }
+        }
+        
+        //U slucaju da je pogodjena zadanja meta, zaustavlja se igrica i korisniku se cestita na pobedi.
+        if(listTargets.size() == 0)
+        {
+            stopGame("Čestitamo pobedili ste, Vaš skor je "  + ".");
         }
     }
     

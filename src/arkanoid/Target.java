@@ -8,6 +8,7 @@ package arkanoid;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
+import java.util.Random;
 
 /**
  * @author Violeta
@@ -31,7 +32,21 @@ public class Target implements GameObject
         
         this.ellipseForDrawing = new RoundRectangle2D.Float(locationX, locationY, WIDTH, HEIGHT, 10, 10);
         
-        color = Color.BLUE;
+        color = Color.BLUE;Random random = new Random();
+        int numberOfColor = random.nextInt(3); //biramo jedan slucajan broj do 3 i na osnovu njega stavljamo boju za pravougaonik
+        
+        if(numberOfColor == 1)
+        {
+            color = Color.LIGHT_GRAY;
+        }
+        else if(numberOfColor == 2)
+        {
+            color = Color.BLUE;
+        }
+        else
+        {
+            color = Color.GREEN;
+        }
     }
     
     @Override
