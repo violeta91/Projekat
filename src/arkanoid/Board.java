@@ -32,6 +32,10 @@ class Board extends JPanel implements Runnable
     final Color BACKGROUND_COLOR = Color.CYAN;
     final Thread runner;
     
+     // Bodovi u igri
+    
+    int myScore = 0;
+    
     Boolean inGame;
     
      // Objekti u igri
@@ -71,9 +75,12 @@ class Board extends JPanel implements Runnable
     
     public void startGame() 
     {
+        myScore = 0;
         inGame = true;
         
         setNumberOfLife(5);
+        
+        generateTargets();
         
         ball.reset();
         pad.reset();
@@ -83,6 +90,10 @@ class Board extends JPanel implements Runnable
     {
         inGame = false;
         this.message = message;
+    }
+    
+    public void countScore(int number) {
+        myScore += number;
     }
     
     /**
@@ -110,6 +121,10 @@ class Board extends JPanel implements Runnable
             }
              
             ball.draw(g2);
+            
+            // Iscrtaj rezultat
+
+            g2.drawString("" + myScore, 10, 20);
             
             g2.drawString("Broj života: " + getNumberOfLife(), PANEL_WIDTH-160, 20);
             
@@ -141,12 +156,15 @@ class Board extends JPanel implements Runnable
             {
                 if(tempTarget.getColor() == Color.LIGHT_GRAY)
                 {
+                    countScore(1);
                 }
                 else if(tempTarget.getColor() == Color.BLUE)
                 {
+                    countScore(2);
                 }
                 else
                 {
+                     countScore(3);
                 }
                 
                 this.listTargets.remove(i);
@@ -157,7 +175,7 @@ class Board extends JPanel implements Runnable
         //U slucaju da je pogodjena zadanja meta, zaustavlja se igrica i korisniku se cestita na pobedi.
         if(listTargets.size() == 0)
         {
-            stopGame("Čestitamo pobedili ste, Vaš skor je "  + ".");
+            stopGame("Čestitamo pobedili ste, Vaš skor je " + this.myScore + ".");
         }
     }
     
