@@ -11,20 +11,31 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.Random;
 
 /**
+ * Klasa Target implementira interface GameObject.
+ * 
  * @author Violeta
  */
 public class Target implements GameObject
 {
+    //Duzina, visina izmedju pravougaonika.
     public static final float WIDTH = 80;
     public static final float HEIGHT = 25;
     
     public RoundRectangle2D.Float ellipseForDrawing = null;
     
+    //lokacija pravougaonika
     float locationX;
     float locationY;
     
+    //boja za pravougaonik
     private Color color = null;
     
+    /**
+     * Konstruktor koji na osnovu koordinata kreira zakrivljeni pravougaonik.
+     * 
+     * @param x x koordinata na kojoj se iscrtava pravougaonik
+     * @param y y koordinata na kojoj se iscrtava pravougaonik
+     */
     public Target(int x, int y)
     {
         locationX = x;
@@ -32,7 +43,7 @@ public class Target implements GameObject
         
         this.ellipseForDrawing = new RoundRectangle2D.Float(locationX, locationY, WIDTH, HEIGHT, 10, 10);
         
-        color = Color.BLUE;Random random = new Random();
+        Random random = new Random();
         int numberOfColor = random.nextInt(3); //biramo jedan slucajan broj do 3 i na osnovu njega stavljamo boju za pravougaonik
         
         if(numberOfColor == 1)
@@ -53,7 +64,12 @@ public class Target implements GameObject
     public void move()
     {
     }
-
+    
+    /**
+     * Funkcija vrsi iscrtavanje pravougaonika za metu.
+     * 
+     * @param g2 Graphics2D objekat na kome se vrsi iscrtavanje.
+     */
     @Override
     public void draw(Graphics2D g2)
     {
