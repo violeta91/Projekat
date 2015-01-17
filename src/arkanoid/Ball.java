@@ -7,6 +7,8 @@ import java.awt.geom.Ellipse2D;
 
 /**
  *
+ * Klasa Ball nasleđuje klasu Rectangle.Double i implementira interface GameObject.
+ * 
  * @author Violeta
  */
 public class Ball extends Rectangle.Double implements GameObject {
@@ -31,6 +33,12 @@ public class Ball extends Rectangle.Double implements GameObject {
     private Color fillColor = Color.RED;
     private Color borderColor = Color.BLACK;
 
+    /**
+     * Inicijalizuje loptu na tabli.
+     * Postavlja lopticu odmah iznad reketa i postavlja brzinu na minimum.
+     * 
+     * @param board Tabla kojoj lopta pripada.
+     */
     public Ball(Board board) {
         this.board = board;
         directionX = 1;
@@ -53,23 +61,32 @@ public class Ball extends Rectangle.Double implements GameObject {
         directionY = -directionY;
     }
     
+    /**
+     * Resetuje poziciju lopte i postavlja je na pocetnu poziciju.
+     */
     public void reset() {
         x = Board.PANEL_WIDTH/2 - w/2;
-        y = Board.PANEL_HEIGHT - h -20;
+        y = Board.PANEL_HEIGHT - Pad.h - h;
         
         dx = DX;
         dy = DY;
     }
     
-    @Override
+    /**
+     * Vrsi pomeranje lopte.
+     * Ispituje poziciji lopte.
+     */
     public void move() 
     {
         x += dx * directionX;
         y += dy * directionY;
         
+        /*Ako je lokacija od lopte plus njena duzina veca ili jednaka duzini panela ili
+        ako je lokacija lopte manja od 0, vrsi pomeranje horizontalno. */
         if (x + w >= board.PANEL_WIDTH || x <= 0)
             bouceHorizontal();
         
+        //Ako je lopta prosla pored reketa vrsi se smanjivanje broja zivota.
         if (y + w >= board.PANEL_HEIGHT) 
         {
             board.setNumberOfLife(board.getNumberOfLife() - 1);
@@ -85,21 +102,27 @@ public class Ball extends Rectangle.Double implements GameObject {
             }
         }
         
+        /*
+        Slucaj kada je loptica dosla do vrha prozora.
+        */
         if(y <= 0)
         {
             bouceVertical();
         }
     }
     
-    @Override
+    /**
+     * Vrsi iscrtavanje lopte na tabli.
+     * @param g2 Graphics2D objekat na kojem se vrsi iscrtavanje.
+     */
     public void draw(Graphics2D g2) 
     {
         ellipseForDrawing = new Ellipse2D.Double(x, y, w, h);
         
-        g2.setPaint(fillColor);
-        g2.fill(ellipseForDrawing); 
+        g2.setPaint(fillColor); //postavljamo boju
+        g2.fill(ellipseForDrawing); //sa postavljenom bojom filujemo objekat
         
-        g2.setPaint(borderColor);
-        g2.draw(ellipseForDrawing); 
+        g2.setPaint(borderColor); //postavljamo boju
+        g2.draw(ellipseForDrawing); //crtamo lopticu
     }
 }
